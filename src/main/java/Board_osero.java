@@ -20,7 +20,15 @@ public class Board_osero {
                 board[a][b] = empty;
             }
         }
+
+        board[3][3] = black;
+        board[3][4] = white;
+        board[4][3] = white;
+        board[4][4] = black;
+
         return board;
     }
+
+
 
 }
