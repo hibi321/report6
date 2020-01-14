@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * オセロゲームを作るためのコード
  */
@@ -37,6 +39,17 @@ public class Board_osero {
         board[4][4] = black;
     }
 
+    public void stonePlace(){
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("このボードは縦軸をx軸、横軸をy軸としており、x座標は上から0、一番下が7であり、y座標は左から0、一番右が7となっている。" +
+                "例えば、x座標が3、y座標が2の位置つまり(x,y) = (3,2)の位置に石を置きたい時は、x=3,y=2と入力せよ。");
+        System.out.println("x=");
+        String xPoint = scan.nextLine();
+        System.out.println("y=");
+        String yPoint = scan.nextLine();
+        System.out.println("(" + xPoint + "," + yPoint +")" + "に石が置かれました。");
+    }
 
 
 
