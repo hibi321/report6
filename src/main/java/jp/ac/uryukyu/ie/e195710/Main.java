@@ -10,5 +10,7 @@ public class Main {
             System.out.println(Arrays.toString(c.board[i]));
         }
 
+        c.stonePlace(c.black);
+
     }
 }

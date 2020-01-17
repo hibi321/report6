@@ -42,41 +42,21 @@ public class Board_osero {
     }
 
     /**
-     * 石を置く時に出力する言葉と石を置く処理をするためのクラス。
+     * 石を置く時に出力する言葉と石を置く処理をするためのメソッド。
      */
-    class stonePlace{
-        Scanner scan = new Scanner(System.in);
+    Scanner scan = new Scanner(System.in);
 
-        public stonePlace(String stone) {
-            System.out.println("このボードは縦軸をx軸、横軸をy軸としており、x座標は上から0、一番下が7であり、y座標は左から0、一番右が7となっている。" +
-                    "例えば、x座標が3、y座標が2の位置つまり(x,y) = (3,2)の位置に石を置きたい時は、x=3,y=2と入力せよ。");
-            System.out.println("x=");
-            String xPoint = scan.nextLine();
-            System.out.println("y=");
-            String yPoint = scan.nextLine();
-            System.out.println("(" + Integer.parseInt(xPoint) + "," + Integer.parseInt(yPoint) + ")" + "に" + stone + "が置かれました。");
-
-            board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] = stone;
-        }
+    public void stonePlace(String stone) {
+        System.out.println("このボードは縦軸をx軸、横軸をy軸としており、x座標は上から0、一番下が7であり、y座標は左から0、一番右が7となっている。" +
+                "例えば、x座標が3、y座標が2の位置つまり(x,y) = (3,2)の位置に石を置きたい時は、x=3,y=2と入力せよ。");
+        System.out.println("x=");
+        String xPoint = scan.nextLine();
+        System.out.println("y=");
+        String yPoint = scan.nextLine();
+        System.out.println("(" + Integer.parseInt(xPoint) + "," + Integer.parseInt(yPoint) + ")" + "に" + stone + "が置かれました。");
+        board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] = stone;
     }
 
-    /**
-     * stonePlaceクラスを継承して、黒石を置くときの対応をしている。
-     */
-    class blackStonePlace extends stonePlace{
-        public blackStonePlace(String stone) {
-            super(black);
-        }
-    }
-
-    /**
-     * stonePlaceクラスを継承して、白石を置くときの対応をしている。
-     */
-    class whiteStonePlace extends stonePlace {
-        public whiteStonePlace(String stone) {
-            super(white);
-        }
-    }
 }
 
 
