@@ -1,3 +1,5 @@
+package jp.ac.uryukyu.ie.e195710;
+
 import java.util.Arrays;
 
 public class Main {
@@ -7,6 +9,6 @@ public class Main {
         for(int i=0; i < 8; i++) {
             System.out.println(Arrays.toString(c.board[i]));
         }
-        c.stonePlace();
+
     }
 }
