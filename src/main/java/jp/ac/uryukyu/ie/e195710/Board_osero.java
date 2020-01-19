@@ -11,6 +11,8 @@ public class Board_osero {
     String empty;
     String black;
     String white;
+    boolean gamingNow;
+
 
     /**
      * 変数に値を代入するためのコンストラクタ
@@ -19,11 +21,12 @@ public class Board_osero {
      * @param white:白の石が置かれている場所
      * @param board:オセロのボードの大きさを決めるための多次元配列、基本は8✖︎8の大きさ
      */
-    Board_osero(String empty, String black, String white, String[][] board){
+    Board_osero(String empty, String black, String white, String[][] board, boolean gamingNow){
         this.empty = empty;
         this.black = black;
         this.white = white;
         this.board = board;
+        this.gamingNow = gamingNow;
 
     }
 
@@ -40,6 +43,7 @@ public class Board_osero {
         board[3][4] = white;
         board[4][3] = white;
         board[4][4] = black;
+
     }
 
     /**
@@ -68,7 +72,26 @@ public class Board_osero {
         System.out.println(Arrays.toString(boardNow.board[i]));
     }
 
+    public void reverseLeftUp(int x, int y, Board_osero c, String myStone, String enemyStone){
+        if(x>1 && y>1){
+            String LeftUpStone = c.board[x-1][y-1];
 
+            if (LeftUpStone.equals(enemyStone)){
+                for (int i = 2; true; i++){
+                    if (x-i < 0 || y-i < 0 || c.board[x-1][y-1].equals(empty)){
+                        break;
+                    }
+                    else if (c.board[x-1][y-1].equals(myStone)){
+                        for(int z = 1; z < i; z++){
+                            c.board[x-z][y-z] = myStone;
+                        }
+                        break;
+                    }
+                }
+            }
+
+        }
+    }
 }
 
 
