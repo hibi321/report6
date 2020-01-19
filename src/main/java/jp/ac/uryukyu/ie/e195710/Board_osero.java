@@ -1,5 +1,6 @@
 package jp.ac.uryukyu.ie.e195710;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -56,6 +57,17 @@ public class Board_osero {
         System.out.println("(" + Integer.parseInt(xPoint) + "," + Integer.parseInt(yPoint) + ")" + "に" + stone + "が置かれました。");
         board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] = stone;
     }
+
+    /**
+     * ターン毎のボードの状況を確認するためのメソッド。
+     * @param boardNow:インスタンスから生み出した変数が入る。
+     */
+    public void currentBoard(Board_osero boardNow){
+        System.out.println("現在のボードの状況");
+        for(int i = 0; i < 8; i++)
+        System.out.println(Arrays.toString(boardNow.board[i]));
+    }
+
 
 }
 
