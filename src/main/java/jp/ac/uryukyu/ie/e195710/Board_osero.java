@@ -231,7 +231,7 @@ public class Board_osero {
                     if (x-i < 0 || y+i > 7 || c.board[x-i][y+i].equals(empty)){
                         break;
                     }
-                    else if (c.board[x-i][y+1].equals(myStone)){
+                    else if (c.board[x-i][y+i].equals(myStone)){
                         for (int z = 1; z < i; z++){
                             c.board[x-z][y+z] = myStone;
                         }
@@ -252,14 +252,14 @@ public class Board_osero {
      */
     public void reverseRight(int x, int y, Board_osero c, String myStone, String enemyStone){
         if (y<6){
-            String rightStone = c.board[x][y+1];
+            String RightStone = c.board[x][y+1];
 
-            if (rightStone.equals(enemyStone)){
+            if (RightStone.equals(enemyStone)){
                 for (int i=2; true; i++){
                     if (y+i > 7 || c.board[x][y+i].equals(empty)){
                         break;
                     }
-                    else if (c.board[x][y+1].equals(myStone)){
+                    else if (c.board[x][y+i].equals(myStone)){
                         for (int z = 1; z < i; z++){
                             c.board[x][y+z] = myStone;
                         }
