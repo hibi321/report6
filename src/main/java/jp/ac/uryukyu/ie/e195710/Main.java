@@ -7,14 +7,16 @@ public class Main {
         Board_osero c = new Board_osero(" ","●", "○", new String[8][8], true);
         c.initialise();
         c.currentBoard(c);
-        while (c.gamingNow = true){
-            c.stonePlace("●", "○", c);
-            c.currentBoard(c);
-            c.calculateFinishGame(c);
+        while (c.gamingNow == true){
+            if (c.gamingNow == true) {
+                c.stonePlace("●", "○", c);
+                c.currentBoard(c);
+                c.calculateFinishGame(c);
+            }
             if (c.gamingNow == true){
-            c.stonePlace("○", "●", c);
-            c.currentBoard(c);
-            c.calculateFinishGame(c);
+                c.stonePlace("○", "●", c);
+                c.currentBoard(c);
+                c.calculateFinishGame(c);
             }
         }
     }

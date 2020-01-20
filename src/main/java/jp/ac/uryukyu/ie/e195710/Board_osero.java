@@ -59,7 +59,7 @@ public class Board_osero {
         String xPoint = scan.nextLine();
         System.out.println("y=");
         String yPoint = scan.nextLine();
-        if (Integer.parseInt(xPoint) < 0 || Integer.parseInt(yPoint) < 0 || Integer.parseInt(xPoint) > 7 || Integer.parseInt(xPoint) > 7 || c.board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] != empty){
+        if (Integer.parseInt(xPoint) < 0 || Integer.parseInt(yPoint) < 0 || Integer.parseInt(xPoint) > 7 || Integer.parseInt(yPoint) > 7 || c.board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] != empty){
             System.out.println("※この場所に石を置くことはできません。");
         }
 
@@ -110,16 +110,17 @@ public class Board_osero {
 
         if (blackStoneNumber + whiteStoneNumber == 64){
             System.out.println("ゲームが終了しました。");
-            System.out.println("黒石" + ":" + blackStoneNumber);
-            System.out.println("白石" + ":" + whiteStoneNumber);
+            System.out.println("●" + ":" + blackStoneNumber);
+            System.out.println("○" + ":" + whiteStoneNumber);
+            c.gamingNow = false;
+
             if (blackStoneNumber > whiteStoneNumber){
-                System.out.println("漆黒悪魔 サターニャの勝利！");
+                System.out.println("●漆黒悪魔 サターニャの勝利！");
+
             }
             if (whiteStoneNumber > blackStoneNumber){
-                System.out.println("白天使 ガヴリールの勝利！");
+                System.out.println("○白天使 ガヴリールの勝利！");
             }
-
-            c.gamingNow = false;
         }
 
         else{
