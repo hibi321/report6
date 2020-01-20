@@ -51,37 +51,62 @@ public class Board_osero {
      */
     Scanner scan = new Scanner(System.in);
 
-    public void stonePlace(String stone) {
+    public void stonePlace(String myStone, String enemyStone, Board_osero c) {
         System.out.println("このボードは縦軸をx軸、横軸をy軸としており、x座標は上から0、一番下が7であり、y座標は左から0、一番右が7となっている。" +
                 "例えば、x座標が3、y座標が2の位置つまり(x,y) = (3,2)の位置に石を置きたい時は、x=3,y=2と入力せよ。");
         System.out.println("x=");
         String xPoint = scan.nextLine();
         System.out.println("y=");
         String yPoint = scan.nextLine();
-        System.out.println("(" + Integer.parseInt(xPoint) + "," + Integer.parseInt(yPoint) + ")" + "に" + stone + "が置かれました。");
-        board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] = stone;
+        System.out.println("(" + Integer.parseInt(xPoint) + "," + Integer.parseInt(yPoint) + ")" + "に" + myStone + "が置かれました。");
+        board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] = myStone;
+
+        c.reverseLeft(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        c.reverseLeftUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        c.reverseUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        c.reverseRightUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        c.reverseRight(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        c.reverseRightDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        c.reverseDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        c.reverseLeftDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+
     }
 
     /**
      * ターン毎のボードの状況を確認するためのメソッド。
-     * @param boardNow:インスタンスから生み出した変数が入る。
+     * @param c:インスタンスから生み出した変数
      */
-    public void currentBoard(Board_osero boardNow){
+    public void currentBoard(Board_osero c){
         System.out.println("現在のボードの状況");
         for(int i = 0; i < 8; i++)
-        System.out.println(Arrays.toString(boardNow.board[i]));
+        System.out.println(Arrays.toString(c.board[i]));
     }
 
+    /**
+     * 石をおけない場所に置こうとしたときの処理。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     */
+
+    /**
+     * 左上方向の石をひっくり返すためのメソッド。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     * @param myStone:自チームの石
+     * @param enemyStone:敵チームの石
+     */
     public void reverseLeftUp(int x, int y, Board_osero c, String myStone, String enemyStone){
         if(x>1 && y>1){
             String LeftUpStone = c.board[x-1][y-1];
 
             if (LeftUpStone.equals(enemyStone)){
                 for (int i = 2; true; i++){
-                    if (x-i < 0 || y-i < 0 || c.board[x-1][y-1].equals(empty)){
+                    if (x-i < 0 || y-i < 0 || c.board[x-i][y-i].equals(empty)){
                         break;
                     }
-                    else if (c.board[x-1][y-1].equals(myStone)){
+                    else if (c.board[x-i][y-i].equals(myStone)){
                         for(int z = 1; z < i; z++){
                             c.board[x-z][y-z] = myStone;
                         }
@@ -92,6 +117,204 @@ public class Board_osero {
 
         }
     }
+
+    /**
+     * 上方向の石をひっくり返すためのメソッド。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     * @param myStone:自チームの石
+     * @param enemyStone:敵チームの石
+     */
+    public void reverseUp(int x, int y, Board_osero c, String myStone, String enemyStone){
+        if (x>1){
+            String upStone = c.board[x-1][y];
+
+            if (upStone.equals(enemyStone)){
+                for (int i=2; true; i++){
+                    if (x-i < 0 || c.board[x-i][y].equals(empty)){
+                        break;
+                    }
+                    else if (c.board[x-i][y].equals(myStone)){
+                        for (int z = 1; z < i; z++){
+                            c.board[x-z][y] = myStone;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 下方向の石をひっくり返すためのメソッド。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     * @param myStone:自チームの石
+     * @param enemyStone:敵チームの石
+     */
+    public void reverseDown(int x, int y, Board_osero c, String myStone, String enemyStone){
+        if (x<6){
+            String downStone = c.board[x+1][y];
+
+            if (downStone.equals(enemyStone)){
+                for (int i=2; true; i++){
+                    if (x+i > 7 || c.board[x+i][y].equals(empty)){
+                        break;
+                    }
+                    else if (c.board[x+i][y].equals(myStone)){
+                        for (int z = 1; z < i; z++){
+                            c.board[x+z][y] = myStone;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 右上方向の石をひっくり返すためのメソッド。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     * @param myStone:自チームの石
+     * @param enemyStone:敵チームの石
+     */
+    public void reverseRightUp(int x, int y, Board_osero c, String myStone, String enemyStone){
+        if (x>1 && y<6){
+            String RightUpStone = c.board[x-1][y+1];
+
+            if (RightUpStone.equals(enemyStone)){
+                for (int i=2; true; i++){
+                    if (x-i < 0 || y+i > 7 || c.board[x-i][y+i].equals(empty)){
+                        break;
+                    }
+                    else if (c.board[x-i][y+1].equals(myStone)){
+                        for (int z = 1; z < i; z++){
+                            c.board[x-z][y+z] = myStone;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 右方向の石をひっくり返すためのメソッド。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     * @param myStone:自チームの石
+     * @param enemyStone:敵チームの石
+     */
+    public void reverseRight(int x, int y, Board_osero c, String myStone, String enemyStone){
+        if (y<6){
+            String rightStone = c.board[x][y+1];
+
+            if (rightStone.equals(enemyStone)){
+                for (int i=2; true; i++){
+                    if (y+i > 7 || c.board[x][y+i].equals(empty)){
+                        break;
+                    }
+                    else if (c.board[x][y+1].equals(myStone)){
+                        for (int z = 1; z < i; z++){
+                            c.board[x][y+z] = myStone;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 左下方向の石をひっくり返すためのメソッド。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     * @param myStone:自チームの石
+     * @param enemyStone:敵チームの石
+     */
+    public void reverseLeftDown(int x, int y, Board_osero c, String myStone, String enemyStone){
+        if (x<6 && y>1){
+            String LeftDownStone = c.board[x+1][y-1];
+
+            if (LeftDownStone.equals(enemyStone)){
+                for (int i=2; true; i++){
+                    if (x+i > 7 || y-i < 0 || c.board[x+i][y-i].equals(empty)){
+                        break;
+                    }
+                    else if (c.board[x+i][y-i].equals(myStone)){
+                        for (int z = 1; z < i; z++){
+                            c.board[x+z][y-z] = myStone;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 左方向の石をひっくり返すためのメソッド。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     * @param myStone:自チームの石
+     * @param enemyStone:敵チームの石
+     */
+    public void reverseLeft(int x, int y, Board_osero c, String myStone, String enemyStone){
+        if (y>1){
+            String LeftStone = c.board[x][y-1];
+
+            if (LeftStone.equals(enemyStone)){
+                for (int i=2; true; i++){
+                    if (y-i < 0 || c.board[x][y-i].equals(empty)){
+                        break;
+                    }
+                    else if (c.board[x][y-i].equals(myStone)){
+                        for (int z = 1; z < i; z++){
+                            c.board[x][y-z] = myStone;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 右下方向の石をひっくり返すためのメソッド。
+     * @param x:プレイヤーが入力したx座標
+     * @param y:プレイヤーが入力したy座標
+     * @param c:インスタンスから生み出した変数
+     * @param myStone:自チームの石
+     * @param enemyStone:敵チームの石
+     */
+    public void reverseRightDown(int x, int y, Board_osero c, String myStone, String enemyStone){
+        if (x<6 && y<6){
+            String rightDownStone = c.board[x+1][y+1];
+
+            if (rightDownStone.equals(enemyStone)){
+                for (int i=2; true; i++){
+                    if (x+i > 7 || y+i > 7 || c.board[x+i][y+i].equals(empty)){
+                        break;
+                    }
+                    else if (c.board[x+i][y+1].equals(myStone)){
+                        for (int z = 1; z < i; z++){
+                            c.board[x+z][y+z] = myStone;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
 }
 
 
