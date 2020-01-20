@@ -77,7 +77,7 @@ public class Board_osero {
      * @param c:インスタンスから生み出した変数
      */
     public void currentBoard(Board_osero c){
-        System.out.println("現在のボードの状況");
+        System.out.println("現在の状況");
         for(int i = 0; i < 8; i++)
         System.out.println(Arrays.toString(c.board[i]));
     }
@@ -88,6 +88,50 @@ public class Board_osero {
      * @param y:プレイヤーが入力したy座標
      * @param c:インスタンスから生み出した変数
      */
+    public void bannedAction(int x, int y, Board_osero c){
+        if (x < 0 || y < 0 || x > 7 || y > 7 || c.board[x][y] != empty){
+            System.out.println("※この場所に石を置くことはできません。");
+        }
+    }
+
+    /**
+     * ターン毎に両チームの石の合計数を数え、全てのemptyが埋まると試合終了を告げるメソッド。
+     * @param c:インスタンスから生み出した変数
+     */
+    public void calculateFinishGame(Board_osero c){
+        int blackStoneNumber = 0;
+        int whiteStoneNumber = 0;
+        for (int a = 0; a < 8; a++){
+            for (int b = 0; b < 8; b++){
+                if (c.board[a][b] == black){
+                    blackStoneNumber += 1;
+                }
+                if (c.board[a][b] == white){
+                    whiteStoneNumber += 1;
+                }
+            }
+        }
+
+        if (blackStoneNumber + whiteStoneNumber == 64){
+            System.out.println("ゲームが終了しました。");
+            System.out.println("黒石" + ":" + blackStoneNumber);
+            System.out.println("白石" + ":" + whiteStoneNumber);
+            if (blackStoneNumber > whiteStoneNumber){
+                System.out.println("漆黒悪魔 サターニャの勝利！");
+            }
+            if (whiteStoneNumber > blackStoneNumber){
+                System.out.println("白天使 ガヴリールの勝利！");
+            }
+
+            c.gamingNow = false;
+        }
+
+        else{
+            System.out.println("黒石" + ":" + blackStoneNumber);
+            System.out.println("白石" + ":" + whiteStoneNumber);
+        }
+
+    }
 
     /**
      * 左上方向の石をひっくり返すためのメソッド。
