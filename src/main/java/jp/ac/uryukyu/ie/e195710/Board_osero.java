@@ -343,7 +343,7 @@ public class Board_osero {
                     if (x+i > 7 || y+i > 7 || c.board[x+i][y+i].equals(empty)){
                         break;
                     }
-                    else if (c.board[x+i][y+1].equals(myStone)){
+                    else if (c.board[x+i][y+i].equals(myStone)){
                         for (int z = 1; z < i; z++){
                             c.board[x+z][y+z] = myStone;
                         }
