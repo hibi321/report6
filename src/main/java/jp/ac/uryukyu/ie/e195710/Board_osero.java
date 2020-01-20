@@ -54,22 +54,28 @@ public class Board_osero {
     public void stonePlace(String myStone, String enemyStone, Board_osero c) {
         System.out.println("このボードは縦軸をx軸、横軸をy軸としており、x座標は上から0、一番下が7であり、y座標は左から0、一番右が7となっている。" +
                 "例えば、x座標が3、y座標が2の位置つまり(x,y) = (3,2)の位置に石を置きたい時は、x=3,y=2と入力せよ。");
+        System.out.println(myStone + "のターン");
         System.out.println("x=");
         String xPoint = scan.nextLine();
         System.out.println("y=");
         String yPoint = scan.nextLine();
-        System.out.println("(" + Integer.parseInt(xPoint) + "," + Integer.parseInt(yPoint) + ")" + "に" + myStone + "が置かれました。");
-        board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] = myStone;
+        if (Integer.parseInt(xPoint) < 0 || Integer.parseInt(yPoint) < 0 || Integer.parseInt(xPoint) > 7 || Integer.parseInt(xPoint) > 7 || c.board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] != empty){
+            System.out.println("※この場所に石を置くことはできません。");
+        }
 
-        c.reverseLeft(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
-        c.reverseLeftUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
-        c.reverseUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
-        c.reverseRightUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
-        c.reverseRight(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
-        c.reverseRightDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
-        c.reverseDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
-        c.reverseLeftDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        else {
+            System.out.println("(" + Integer.parseInt(xPoint) + "," + Integer.parseInt(yPoint) + ")" + "に" + myStone + "が置かれました。");
+            board[Integer.parseInt(xPoint)][Integer.parseInt(yPoint)] = myStone;
 
+            c.reverseLeft(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+            c.reverseLeftUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+            c.reverseUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+            c.reverseRightUp(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+            c.reverseRight(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+            c.reverseRightDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+            c.reverseDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+            c.reverseLeftDown(Integer.parseInt(xPoint), Integer.parseInt(yPoint), c, myStone, enemyStone);
+        }
     }
 
     /**
@@ -82,17 +88,7 @@ public class Board_osero {
         System.out.println(Arrays.toString(c.board[i]));
     }
 
-    /**
-     * 石をおけない場所に置こうとしたときの処理。
-     * @param x:プレイヤーが入力したx座標
-     * @param y:プレイヤーが入力したy座標
-     * @param c:インスタンスから生み出した変数
-     */
-    public void bannedAction(int x, int y, Board_osero c){
-        if (x < 0 || y < 0 || x > 7 || y > 7 || c.board[x][y] != empty){
-            System.out.println("※この場所に石を置くことはできません。");
-        }
-    }
+
 
     /**
      * ターン毎に両チームの石の合計数を数え、全てのemptyが埋まると試合終了を告げるメソッド。

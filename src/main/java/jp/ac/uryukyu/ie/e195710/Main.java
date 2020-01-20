@@ -8,8 +8,14 @@ public class Main {
         c.initialise();
         c.currentBoard(c);
         while (c.gamingNow = true){
-
+            c.stonePlace("●", "○", c);
+            c.currentBoard(c);
+            c.calculateFinishGame(c);
+            if (c.gamingNow == true){
+            c.stonePlace("○", "●", c);
+            c.currentBoard(c);
+            c.calculateFinishGame(c);
+            }
         }
-
     }
 }
